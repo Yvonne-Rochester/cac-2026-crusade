@@ -167,8 +167,14 @@
             position: fixed;
             bottom: 28px;
             right: 28px;
-            transition: all 0.25s ease;
+            transition: opacity 0.3s ease, transform 0.3s ease;
             box-shadow: 0 10px 25px rgba(236, 72, 153, 0.35);
+        }
+
+        .floating-cta.hidden {
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(20px);
         }
 
         .btn-primary:hover {
@@ -1962,33 +1968,50 @@
       // This script integrates your registration form with Brevo for email automation
 
       // IMPORTANT: This code protects the actual Brevo credentials
-            const response = await fetch('/api/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          firstName,
-          lastName,
-          email,
-          phone,
-          message
-        })
-      });
+document.querySelector("#registrationForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
 
-      const result = await response.json();
+  const submitBtn = e.target.querySelector("button");
+  const originalBtnText = submitBtn.textContent;
 
-      if (!response.ok) {
-        console.error('Registration error:', result);
-        alert('Registration failed. Please try again.');
-        submitBtn.textContent = originalBtnText;
-        submitBtn.disabled = false;
-        return;
-      }
+  submitBtn.textContent = "Submitting...";
+  submitBtn.disabled = true;
 
-      window.location.href = THANK_YOU_URL;
+  const firstName = document.querySelector("#firstName").value;
+  const lastName = document.querySelector("#lastName").value;
+  const email = document.querySelector("#email").value;
+  const phone = document.querySelector("#phone").value;
+  const message = document.querySelector("#message").value;
 
-      const BREVO_LIST_ID = 5;   // Get this from Brevo Contacts > Lists
+  // 👇 YOUR ORIGINAL CODE GOES HERE (unchanged)
+  const response = await fetch('/api/register', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      firstName,
+      lastName,
+      email,
+      phone,
+      message
+    })
+  });
+
+  const result = await response.json();
+
+  if (!response.ok) {
+    console.error('Registration error:', result);
+    alert('Registration failed. Please try again.');
+    submitBtn.textContent = originalBtnText;
+    submitBtn.disabled = false;
+    return;
+  }
+
+  window.location.href = THANK_YOU_URL;
+});
+
+      const BREVO_LIST_ID = 5;
       const THANK_YOU_URL = 'https://whyzeideaz.blogspot.com/p/cac-2026-registration-confirmation.html';
 
       // Handle form submission
@@ -2032,15 +2055,18 @@
                   updateEnabled: true  // Update contact if already exists
               };
 
-              // Send to Brevo API
-              const response = await fetch('https://api.brevo.com/v3/contacts', {
-                  method: 'POST',
-                  headers: {
-                      'Accept': 'application/json',
-                      'Content-Type': 'application/json',
-                      'api-key': BREVO_API_KEY
-                  },
-                  body: JSON.stringify(contactData)
+              const response = await fetch('/api/register', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  firstName,
+                  lastName,
+                  email,
+                  phone,
+                  message
+                })
               });
 
               // Handle response
@@ -2189,10 +2215,28 @@
             timelineObserver.observe(impactSection);
         }
 
-
-
  });
     
+//Hide floating CTA whenever Registration Form is visible
+const floatingCta = document.querySelector(".floating-cta");
+const formCard = document.querySelector(".form-card");
+
+function toggleFloatingCta() {
+  if (!floatingCta || !formCard) return;
+
+  const rect = formCard.getBoundingClientRect();
+
+  // Hide CTA if form-card is visible in viewport
+  if (rect.top < window.innerHeight && rect.bottom > 0) {
+    floatingCta.classList.add("hidden");
+  } else {
+    floatingCta.classList.remove("hidden");
+  }
+}
+
+window.addEventListener("scroll", toggleFloatingCta);
+toggleFloatingCta();
+
 
 
 
