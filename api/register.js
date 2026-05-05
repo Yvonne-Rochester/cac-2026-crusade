@@ -3,7 +3,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ message: "Method not allowed" });
   }
 
-  const { email, firstName, lastName } = req.body;
+  const { email, firstName, lastName, phone, message } = req.body;
 
   if (!email) {
     return res.status(400).json({ message: "Email is required" });
@@ -21,7 +21,10 @@ export default async function handler(req, res) {
         attributes: {
           FIRSTNAME: firstName || "",
           LASTNAME: lastName || "",
+          PHONE: phone || "",
+          MESSAGE: message || "",
         },
+        listIds: [5],
         updateEnabled: true,
       }),
     });
@@ -34,6 +37,7 @@ export default async function handler(req, res) {
 
     return res.status(200).json({ success: true });
   } catch (error) {
+    console.error("Brevo registration error:", error);
     return res.status(500).json({ message: "Server error" });
   }
 }

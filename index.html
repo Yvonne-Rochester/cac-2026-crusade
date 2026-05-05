@@ -1963,151 +1963,81 @@
         <p class="copyright">© 2026 All Rights Reserved</p>
     </footer>
 
+
     <script>
       // ===== BREVO API INTEGRATION FOR CAC 2026 REGISTRATION =====
       // This script integrates your registration form with Brevo for email automation
 
       // IMPORTANT: This code protects the actual Brevo credentials
-document.querySelector("#registrationForm").addEventListener("submit", async (e) => {
+const THANK_YOU_URL = 'https://whyzeideaz.blogspot.com/p/cac-2026-registration-confirmation.html';
+
+// Handle form submission
+document.getElementById('registrationForm').addEventListener('submit', async function (e) {
   e.preventDefault();
 
-  const submitBtn = e.target.querySelector("button");
-  const originalBtnText = submitBtn.textContent;
+  const firstName = document.getElementById('firstName').value.trim();
+  const lastName = document.getElementById('lastName').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const message = document.getElementById('message').value.trim();
 
-  submitBtn.textContent = "Submitting...";
-  submitBtn.disabled = true;
-
-  const firstName = document.querySelector("#firstName").value;
-  const lastName = document.querySelector("#lastName").value;
-  const email = document.querySelector("#email").value;
-  const phone = document.querySelector("#phone").value;
-  const message = document.querySelector("#message").value;
-
-  // 👇 YOUR ORIGINAL CODE GOES HERE (unchanged)
-  const response = await fetch('/api/register', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      firstName,
-      lastName,
-      email,
-      phone,
-      message
-    })
-  });
-
-  const result = await response.json();
-
-  if (!response.ok) {
-    console.error('Registration error:', result);
-    alert('Registration failed. Please try again.');
-    submitBtn.textContent = originalBtnText;
-    submitBtn.disabled = false;
+  if (!firstName || !lastName || !email) {
+    alert('Please fill in all required fields (First Name, Last Name, Email)');
     return;
   }
 
-  window.location.href = THANK_YOU_URL;
+  const submitBtn = document.querySelector('.btn-submit');
+  const originalBtnText = submitBtn.textContent;
+
+  submitBtn.textContent = 'Submitting...';
+  submitBtn.disabled = true;
+
+  try {
+    const response = await fetch('/api/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        firstName,
+        lastName,
+        email,
+        phone,
+        message
+      })
+    });
+
+    let result = {};
+    try {
+      result = await response.json();
+    } catch (_) {
+      result = {};
+    }
+
+    if (!response.ok) {
+      console.error('Registration error:', result);
+      alert('Registration failed. Please try again or contact us at 1-877-843-4567');
+      submitBtn.textContent = originalBtnText;
+      submitBtn.disabled = false;
+      return;
+    }
+
+    alert('Thank you for registering! A confirmation email will be sent to ' + email);
+
+    document.getElementById('registrationForm').reset();
+
+    setTimeout(() => {
+      window.location.href = THANK_YOU_URL;
+    }, 1500);
+
+  } catch (error) {
+    console.error('Error submitting registration:', error);
+    alert('There was an error processing your registration. Please try again or contact us at 1-877-843-4567');
+
+    submitBtn.textContent = originalBtnText;
+    submitBtn.disabled = false;
+  }
 });
-
-      const BREVO_LIST_ID = 5;
-      const THANK_YOU_URL = 'https://whyzeideaz.blogspot.com/p/cac-2026-registration-confirmation.html';
-
-      // Handle form submission
-      document.getElementById('registrationForm').addEventListener('submit', async function(e) {
-          e.preventDefault();
-          
-          // Get form values
-          const firstName = document.getElementById('firstName').value.trim();
-          const lastName = document.getElementById('lastName').value.trim();
-          const email = document.getElementById('email').value.trim();
-          const phone = document.getElementById('phone').value.trim();
-          const message = document.getElementById('message').value.trim();
-
-          // Validate required fields
-          if (!firstName || !lastName || !email) {
-              alert('Please fill in all required fields (First Name, Last Name, Email)');
-              return;
-          }
-
-          // Show loading state
-          const submitBtn = document.querySelector('.btn-submit');
-          const originalBtnText = submitBtn.textContent;
-          submitBtn.textContent = 'Processing...';
-          submitBtn.disabled = true;
-
-          try {
-              // Prepare data for Brevo API
-              const contactData = {
-                  email: email,
-                  firstName: firstName,
-                  lastName: lastName,
-                  phone: phone,
-                  attributes: {
-                      FIRSTNAME: firstName,
-                      LASTNAME: lastName,
-                      PHONE: phone,
-                      MESSAGE: message,
-                      REGISTRATION_DATE: new Date().toISOString()
-                  },
-                  listIds: [BREVO_LIST_ID],
-                  updateEnabled: true  // Update contact if already exists
-              };
-
-              const response = await fetch('/api/register', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                  firstName,
-                  lastName,
-                  email,
-                  phone,
-                  message
-                })
-              });
-
-              // Handle response
-              if (response.ok || response.status === 204) {
-                  console.log('Contact added/updated successfully in Brevo');
-                  
-                  // Show success message
-                  alert('Thank you for registering! A confirmation email will be sent to ' + email);
-                  
-                  // Reset form
-                  document.getElementById('registrationForm').reset();
-                  
-                  // Redirect to thank you page after 2 seconds
-                  setTimeout(() => {
-                      window.location.href = THANK_YOU_URL;
-                  }, 2000);
-                  
-              } else if (response.status === 400) {
-                  // Contact already exists or validation error
-                  const errorData = await response.json();
-                  console.log('Response:', errorData);
-                  alert('Thank you for registering! A confirmation email will be sent to ' + email);
-                  
-                  // Still redirect even if contact exists
-                  setTimeout(() => {
-                      window.location.href = THANK_YOU_URL;
-                  }, 2000);
-                  
-              } else {
-                  throw new Error(`API error: ${response.status}`);
-              }
-
-          } catch (error) {
-              console.error('Error submitting registration:', error);
-              alert('There was an error processing your registration. Please try again or contact us at 1-877-843-4567');
-              
-              // Reset button state
-              submitBtn.textContent = originalBtnText;
-              submitBtn.disabled = false;
-          }
-      });
 
 // ===== SETUP INSTRUCTIONS =====
 /*
