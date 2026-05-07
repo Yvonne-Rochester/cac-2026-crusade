@@ -78,43 +78,53 @@
             padding: 0 1rem;
         }
 
-        .menu-toggle {
-        display: none;
-        background: none;
-        border: none;
-        color: white;
-        font-size: 2rem;
-        cursor: pointer;
-      }
+.hamburger {
+  display: none;
+}
 
-      .hamburger {
-        display: none;
-      }
+@media (max-width: 768px) {
+  nav {
+    position: relative;
+  }
 
-      @media (max-width: 768px) {
-        .menu-toggle {
-          display: block;
-        }
+  .menu-toggle {
+    display: block;
+    z-index: 10001;
+  }
 
-        .hamburger {
-          display: none;
-          position: absolute;
-          top: 100%;
-          right: 1rem;
-          background: #0f1b3d;
-          border: 1px solid rgba(255,255,255,0.12);
-          border-radius: 12px;
-          padding: 1rem;
-          flex-direction: column;
-          gap: 0.75rem;
-          z-index: 999;
-        }
+  .hamburger {
+    display: none;
+  }
 
-        .hamburger.open {
-          display: flex;
-        }
-      }
+.hamburger.open {
+  position: fixed;
+  top: 90px;
+  right: 1rem;
+  left: 1rem;
 
+  background: #0f1b3d;
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 12px;
+
+  padding: 0.55rem 1rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+
+  z-index: 10000;
+}
+
+.hamburger.open a {
+  color: white;
+  text-decoration: none;
+
+  font-size: 0.98rem;
+  line-height: 1.2;
+
+  padding: 0.18rem 0;
+}
+}
         /* Hero Section */
         .hero {
             padding: 3rem 1rem;
@@ -1506,25 +1516,21 @@
                 <a href="#faq">FAQ</a>
                 <a href="#register">Register</a>
                 <a href="#merch">Merch</a>
-                
-
+            </div>
+            <button class="menu-toggle" aria-label="Open menu">☰</button>
+            <div class="hamburger">
+                <a href="#welcome">Welcome</a>
+                <a href="#event">Event</a>
+                <a href="#speaker">Speaker</a>
+                <a href="#testimony">Testimonies</a>
+                <a href="#impact">Impact</a>
+                <a href="#hotels">Hotels</a>
+                <a href="#faq">FAQ</a>
+                <a href="#register">Register</a>
+                <a href="#merch">Merch</a>              
             </div>
         </div>
     </nav>
-
-    <button class="menu-toggle" aria-label="Open menu">☰</button>
-
-  <div class="hamburger">
-    <a href="#welcome">Welcome</a>
-    <a href="#event">Event</a>
-    <a href="#speaker">Speaker</a>
-    <a href="#testimonies">Testimonies</a>
-    <a href="#impact">Impact</a>
-    <a href="#hotels">Hotels</a>
-    <a href="#faq">FAQ</a>
-    <a href="#register">Register</a>
-    <a href="#merch">Merch</a>
-  </div>
 
    <img class="hero-img" src=" https://joshuamediaministries.org/wp-content/uploads/2026/01/CAC-2026-Facebook.jpg" alt="2026 Crusade Against Cancer" />    
 
@@ -1869,15 +1875,17 @@
         </div>
     </div>
     </section>    
+      
+    </section>
 
     <!-- Registration Section -->
-    <section class="registration" id="register">
+   <section class="registration" id="register">
         <div class="container">
             <h2 class="section-title">
                 <span>Register</span> <span>for Free</span>
             </h2>
-
-            <div class="registration-grid">
+     
+          <div class="registration-grid">
                 <!-- Registration Form -->
                 <div class="form-card">
                     <h3>Sign Up Today</h3>
@@ -2029,19 +2037,6 @@
 
 
     <script>
-const menuToggle = document.querySelector(".menu-toggle");
-const hamburgerMenu = document.querySelector(".hamburger");
-
-menuToggle?.addEventListener("click", () => {
-  hamburgerMenu.classList.toggle("open");
-});
-
-hamburgerMenu?.querySelectorAll("a").forEach((link) => {
-  link.addEventListener("click", () => {
-    hamburgerMenu.classList.remove("open");
-  });
-});
-
       // ===== BREVO API INTEGRATION FOR CAC 2026 REGISTRATION =====
       // This script integrates your registration form with Brevo for email automation
 
@@ -2247,11 +2242,26 @@ function toggleFloatingCta() {
   }
 }
 
-window.addEventListener("scroll", toggleFloatingCta);
-window.addEventListener("resize", toggleFloatingCta);
-toggleFloatingCta();
+document.addEventListener("DOMContentLoaded", function () {
+  const menuToggle = document.querySelector(".menu-toggle");
+  const hamburgerMenu = document.querySelector(".hamburger");
 
+  if (!menuToggle || !hamburgerMenu) {
+    console.log("Menu toggle or hamburger menu not found");
+    return;
+  }
 
+  menuToggle.addEventListener("click", function () {
+    console.log("Hamburger clicked");
+    hamburgerMenu.classList.toggle("open");
+  });
+
+  hamburgerMenu.querySelectorAll("a").forEach(function (link) {
+    link.addEventListener("click", function () {
+      hamburgerMenu.classList.remove("open");
+    });
+  });
+});
 
 
     </script>
