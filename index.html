@@ -78,9 +78,46 @@
             padding: 0 1rem;
         }
 
+        .menu-toggle {
+        display: none;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 2rem;
+        cursor: pointer;
+      }
+
+      .hamburger {
+        display: none;
+      }
+
+      @media (max-width: 768px) {
+        .menu-toggle {
+          display: block;
+        }
+
+        .hamburger {
+          display: none;
+          position: absolute;
+          top: 100%;
+          right: 1rem;
+          background: #0f1b3d;
+          border: 1px solid rgba(255,255,255,0.12);
+          border-radius: 12px;
+          padding: 1rem;
+          flex-direction: column;
+          gap: 0.75rem;
+          z-index: 999;
+        }
+
+        .hamburger.open {
+          display: flex;
+        }
+      }
+
         /* Hero Section */
         .hero {
-            padding: 5rem 1rem;
+            padding: 3rem 1rem;
             overflow: hidden;
         }
 
@@ -126,7 +163,7 @@
             object-fit: cover;
             height: auto;
             display: block;
-            border: 4px solid #fbbf24;
+            border: 4px solid #f4c542;
             border-radius: 14px;
             box-sizing: border-box;           
         }
@@ -138,7 +175,7 @@
         }
 
         .detail-icon {
-            color: #fbbf24;
+            color: #f4c542;
             font-size: 1.5rem;
         }
 
@@ -661,6 +698,8 @@
   width: 100%;
   height: 100%;
   border-radius: 8px;
+  box-sizing: border-box;
+  border: 2px solid #f4c542;
 }
 
 .hotels {
@@ -1473,6 +1512,20 @@
         </div>
     </nav>
 
+    <button class="menu-toggle" aria-label="Open menu">☰</button>
+
+  <div class="hamburger">
+    <a href="#welcome">Welcome</a>
+    <a href="#event">Event</a>
+    <a href="#speaker">Speaker</a>
+    <a href="#testimonies">Testimonies</a>
+    <a href="#impact">Impact</a>
+    <a href="#hotels">Hotels</a>
+    <a href="#faq">FAQ</a>
+    <a href="#register">Register</a>
+    <a href="#merch">Merch</a>
+  </div>
+
    <img class="hero-img" src=" https://joshuamediaministries.org/wp-content/uploads/2026/01/CAC-2026-Facebook.jpg" alt="2026 Crusade Against Cancer" />    
 
     <!-- Hero Section -->
@@ -1487,10 +1540,10 @@
                         <span>Crusade Against Cancer</span>
                     </h1>
                     <p>
-                    Get ready for a life-changing encounter! <br />God has called <span style="font-weight: bold; color: 
-                    #fbbf24;">Apostle David E. Taylor</span> as a Healing Shepherd - not just to America, but to the 
-                    nations of the world.<br/> This is your moment! </p>
-                    <p><span style="font-weight: bold; color:#fbbf24;"><i>👉 See you in the Room!</i></span></p>
+                    Get ready for a life-changing encounter!</p><p>God has called <span style="font-weight: 700; color: 
+                    #f6d36f;">Apostle David E. Taylor</span> as a Healing Shepherd - not just to America, but to the 
+                    nations of the world. This is your moment! </p>
+                    <p><span style="font-weight: 600; color:#f4d27a;"><i>See you in the Room!</i></span></p>
                     </p>
                     <div class="hero-details">
                         <div class="detail-item">
@@ -1976,6 +2029,19 @@
 
 
     <script>
+const menuToggle = document.querySelector(".menu-toggle");
+const hamburgerMenu = document.querySelector(".hamburger");
+
+menuToggle?.addEventListener("click", () => {
+  hamburgerMenu.classList.toggle("open");
+});
+
+hamburgerMenu?.querySelectorAll("a").forEach((link) => {
+  link.addEventListener("click", () => {
+    hamburgerMenu.classList.remove("open");
+  });
+});
+
       // ===== BREVO API INTEGRATION FOR CAC 2026 REGISTRATION =====
       // This script integrates your registration form with Brevo for email automation
 
