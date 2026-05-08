@@ -78,53 +78,58 @@
             padding: 0 1rem;
         }
 
-.hamburger {
-  display: none;
-}
+        .hamburger {
+          display: none;
+        }
 
-@media (max-width: 768px) {
-  nav {
-    position: relative;
-  }
+        @media (max-width: 768px) {
+          nav {
+            position: relative;
+          }
 
-  .menu-toggle {
-    display: block;
-    z-index: 10001;
-  }
+          .menu-toggle {
+            display: block;
+            z-index: 10001;
+          }
 
-  .hamburger {
-    display: none;
-  }
+          .hamburger {
+          display: none;
+          position: fixed;
+          top: 90px;
+          right: 1rem;
+          left: 1rem;
+          background: #0f1b3d;
+          border: 1px solid rgba(255,255,255,0.18);
+          border-radius: 12px;
+          padding: 0.55rem 1rem;         
+          flex-direction: column;
+          gap: 0.15rem;
+          z-index: 10000;
+        }
 
-.hamburger.open {
-  position: fixed;
-  top: 90px;
-  right: 1rem;
-  left: 1rem;
+        .hamburger.open {
+          display: flex;
+        }
 
-  background: #0f1b3d;
-  border: 1px solid rgba(255,255,255,0.18);
-  border-radius: 12px;
+        .hamburger.open a {
+          color: white;
+          text-decoration: none;
+          font-size: 0.98rem;
+          line-height: 1.2;
+          padding: 0.18rem 0;
+        }
+      }
 
-  padding: 0.55rem 1rem;
+      .drop-down {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 14px;
+        border: 1px solid #fbbf24;
+        box-sizing: border-box;
+      }
+      
 
-  display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
-
-  z-index: 10000;
-}
-
-.hamburger.open a {
-  color: white;
-  text-decoration: none;
-
-  font-size: 0.98rem;
-  line-height: 1.2;
-
-  padding: 0.18rem 0;
-}
-}
         /* Hero Section */
         .hero {
             padding: 3rem 1rem;
@@ -205,8 +210,8 @@
             .floating-cta  {
             background-color: #ec4899  ;
             color: #dbeafe !important;
-            padding: 0.9rem 1.4rem;
-            font-size: 1.125rem;
+            padding: 0.7rem 1rem;
+            font-size: 0.7rem;
             font-weight: bold;
             border: none;
             border-radius: 1.5rem;
@@ -217,8 +222,14 @@
             position: fixed;
             bottom: 28px;
             right: 28px;
+            opacity: 0.88;
             transition: opacity 0.3s ease, transform 0.3s ease;
             box-shadow: 0 10px 25px rgba(236, 72, 153, 0.35);
+        }
+
+        .floating-cta:hover {
+          background-color: #db2777;
+          transform: translateY(-5px);
         }
 
         .floating-cta.hidden {
@@ -465,6 +476,45 @@
         }
 
         /* Registration Section */
+        .registration-actions {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 0.75rem;
+        }
+
+        .registration-note {
+          margin: 0;
+          text-align: center;
+        }
+
+        .registration-banner {
+          width: 100%;
+          max-width: 930px;
+          display: block;
+          margin: 0 auto 1rem;
+          box-sizing: border-box;
+          border: 4px solid #f4c542;
+          border-radius: 14px;
+          text-align: center;
+        }
+
+          @media (max-width: 768px) {
+
+            .registration-banner {
+              width: 100%;
+              max-width: none;
+              height: auto;
+
+              display: block;
+              margin: 0 auto 0.75rem;
+
+              border-radius: 14px;
+            }
+
+          }
+
+
         .registration {
             padding: 5rem 1rem;
             background-color: rgba(30, 41, 59, 0.5);
@@ -479,10 +529,12 @@
         }
 
         .form-card {
-            background-color: #1e293b;
+/*            background-color: #1e293b;
             border: 1px solid rgba(59, 130, 246, 0.3);
             border-radius: 0.5rem;
-            padding: 2rem;
+            */
+            padding: 0.5rem;
+            
         }
 
         .form-card h3 {
@@ -493,8 +545,9 @@
 
         .form-card .subtitle {
             color: #93c5fd;
-            font-size: 0.875rem;
-            margin-bottom: 1.5rem;
+          /*  font-size: 0.875rem;  */
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
         }
 
         .form-group {
@@ -542,13 +595,14 @@
         }
 
         .btn-submit {
-            width: 100%;
+            width: fit-content;
             background-color: #eab308;
-            color: #1e293b;
-            padding: 0.75rem;
+            color: #1e293b !important;
+            padding: 0.9rem 1.4rem;
             font-weight: bold;
+            font-size: x-large;
             border: none;
-            border-radius: 0.5rem;
+            border-radius: 0.9rem;
             cursor: pointer;
             transition: background-color 0.3s;
             margin-top: 1rem;
@@ -1497,6 +1551,45 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* BACK-TO-TOP BUTTON */
+.back-to-top {
+  position: fixed;
+  bottom: 28px;
+  left: 28px;
+  width: 30px;
+  height: 30px;
+  background: rgba(236, 72, 153, 0.82);
+  color: #dbeafe;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 2px 8px rgba(236, 72, 153, 0.14);
+}
+
+.back-to-top:hover {
+  background-color: #db2777;
+  transform: translateY(-5px);
+}
+
+.back-to-top.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(20px);
+}
+
+.back-to-top svg {
+  width: 24px;
+  height: 24px;
+}
+
+
+
     </style>
 </head>
 <body>
@@ -1527,8 +1620,10 @@
                 <a href="#hotels">Hotels</a>
                 <a href="#faq">FAQ</a>
                 <a href="#register">Register</a>
-                <a href="#merch">Merch</a>              
-            </div>
+                <a href="#merch">Merch</a>  
+              <br>
+                <div><a href="https://www.eventbrite.com/e/2026-crusade-against-cancer-tickets-1980840396950"><img class="hero-img" alt="Crusade Miracle Testimony" src="jmmi-regn-banner.jpeg"/></a></div>   
+            </div>  
         </div>
     </nav>
 
@@ -1570,9 +1665,9 @@
                         </div>
                     </div>
                     <button class="btn-primary" onclick="document.getElementById('register').scrollIntoView({behavior: 'smooth'})">
-                        Register Free
+                        Reserve Your Spot
                     </button>
-                    <a href="#register" class="floating-cta">Register Free</a>
+                    <a href="#register" class="floating-cta">Reserve Your Spot</a>
                 </div>
 
                 <!-- Right Visual -->
@@ -1880,86 +1975,25 @@
 
     <!-- Registration Section -->
    <section class="registration" id="register">
-        <div class="container">
-            <h2 class="section-title">
+        <div class="container form-card">
+            <h2 class="section-title" style="margin-bottom: 1rem;">
                 <span>Register</span> <span>for Free</span>
             </h2>
-     
-          <div class="registration-grid">
                 <!-- Registration Form -->
-                <div class="form-card">
-                    <h3>Sign Up Today</h3>
-                    <p class="subtitle">Join thousands for this life-changing event</p>
-                    <form id="registrationForm">
-                        <div class="form-group-row">
-                            <div class="form-group">
-                                <label for="firstName">First Name *</label>
-                                <input type="text" id="firstName" name="firstName" placeholder="John" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="lastName">Last Name *</label>
-                                <input type="text" id="lastName" name="lastName" placeholder="Doe" required>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="email">Email Address *</label>
-                            <input type="email" id="email" name="email" placeholder="john@example.com" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="phone">Phone Number</label>
-                            <input type="tel" id="phone" name="phone" placeholder="(555) 123-4567">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="message">Message (Optional)</label>
-                            <textarea id="message" name="message" placeholder="Tell us why you're interested in attending..."></textarea>
-                        </div>
-
-                        <button type="submit" class="btn-submit">Register Now</button>
-                    </form>
+                <h3 style="text-align: center;">Join thousands for this life-changing event</h3>
+                <form id="registrationForm">                   
+                <img class="registration-banner" src="jmmi-regn-banner.jpeg" alt="Crusade Against Cancer Eventbrite Registration Form" />
+                
+                <div class="registration-actions">
+                  <a 
+                    href="https://www.eventbrite.com/e/2026-crusade-against-cancer-tickets-1980840396950" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn-submit"
+                    >Reserve Your Spot
+                  </a>                  
+                  <p class="registration-note">Secure registration powered by Eventbrite.</p>
                 </div>
-
-                <!-- Contact Information -->
-                <div>
-                    <div class="contact-card">
-                        <h3>Contact Information</h3>
-                        <div class="contact-item">
-                            <span class="contact-icon">📞</span>
-                            <div class="contact-info">
-                                <p>Phone</p>
-                                <p>1-877-843-4567</p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <span class="contact-icon">🌐</span>
-                            <div class="contact-info">
-                                <p>Website</p>
-                                <p>koggc.org/cac2026</p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <span class="contact-icon">📍</span>
-                            <div class="contact-info">
-                                <p>Address</p>
-                                <p>20320 Superior Road<br>Taylor, Michigan, USA <br> (Detroit/Southgate)</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="why-attend">
-                        <h3>Why Attend?</h3>
-                        <ul>
-                            <li>✨ Experience spiritual transformation</li>
-                            <li>💪 Find strength and hope</li>
-                            <li>🤝 Connect with a supportive community</li>
-                            <li>❤️ Support the fight against cancer</li>
-                            <li>🙏 Witness miracles and healing</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
 
@@ -2027,6 +2061,14 @@
     </div>
   </div>
 </section>    
+
+<!-- Back to Top Button -->
+<button id="backToTop" class="back-to-top" aria-label="Back to top">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <polyline points="18 15 12 9 6 15"></polyline>
+  </svg>
+</button>
+
 
     <!-- Footer -->
     <footer>
@@ -2140,7 +2182,7 @@ document.getElementById('registrationForm').addEventListener('submit', async fun
 */
 
 
-        //Testimony Siders
+        //TESTIMONY SLIDERS
         let slideIndex = 1;
         showSlides(slideIndex);
 
@@ -2219,7 +2261,7 @@ document.getElementById('registrationForm').addEventListener('submit', async fun
 
  });
     
-// Hide floating CTA whenever static CTA or registration form is visible
+// HIDE FLOATING-CTA WHEN STATIC CTA/REGN FORM IS VISIBLE
 const floatingCta = document.querySelector(".floating-cta");
 const formCard = document.querySelector(".form-card");
 const staticCta = document.querySelector(".hero .btn-primary");
@@ -2242,6 +2284,7 @@ function toggleFloatingCta() {
   }
 }
 
+// HAMBURGER MENU TOGGLE
 document.addEventListener("DOMContentLoaded", function () {
   const menuToggle = document.querySelector(".menu-toggle");
   const hamburgerMenu = document.querySelector(".hamburger");
@@ -2262,6 +2305,27 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
+
+//BACK-TO-TOP BUTTON
+const backToTopButton = document.getElementById("backToTop");
+
+// Show/hide button based on scroll position
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 300) {
+    backToTopButton.classList.remove("hidden");
+  } else {
+    backToTopButton.classList.add("hidden");
+  }
+});
+
+// Smooth scroll to top when clicked
+backToTopButton.addEventListener("click", () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+});
+
 
 
     </script>
