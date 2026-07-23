@@ -1994,6 +1994,7 @@
                   </a>                  
                   <p class="registration-note">Secure registration powered by Eventbrite.</p>
                 </div>
+              </form>
         </div>
     </section>
 
@@ -2284,6 +2285,12 @@ function toggleFloatingCta() {
   }
 }
 
+/*
+window.addEventListener("scroll", toggleFloatingCta);
+window.addEventListener("resize", toggleFloatingCta);
+toggleFloatingCta();
+*/
+
 // HAMBURGER MENU TOGGLE
 document.addEventListener("DOMContentLoaded", function () {
   const menuToggle = document.querySelector(".menu-toggle");
@@ -2316,6 +2323,7 @@ window.addEventListener("scroll", () => {
   } else {
     backToTopButton.classList.add("hidden");
   }
+  toggleFloatingCta();
 });
 
 // Smooth scroll to top when clicked
